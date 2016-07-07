@@ -21,16 +21,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('tasks', [
             'tasks' => Task::orderBy('created_at', 'asc')->get()
-        ]);
+        ]
+            //,['id'=>Task::orderBy('id','asc')->get()]
+        );
     });
 
     /**
      * Add New Task
      */
     Route::post('/task', function (Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-        ]);
+        $validator = Validator::make($request->all(), ['name' => 'required|max:255',]);
 
         if ($validator->fails()) {
             return redirect('/')
